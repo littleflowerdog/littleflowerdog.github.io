@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keyword"  content="codeboy, @codeboy, 小胖轩, 玄恒, Blog, Github, 博客, 互联网, 前端, 设计, 产品,  玄恒的个人网站, android,  mobile, server, web, datamine ">
-    <meta name="description" content="编码生涯的点点滴滴">
+    <meta name="keyword"  content="toulaoshi, @toulaoshi, 头老师,  Blog, Github, 博客, 互联网, 前端, 设计, 产品,  头老师的博客, iOS,  mobile, server, web, datamine ">
+    <meta name="description" content="记录分享技术成长">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>HashMap的小优化 - 小胖轩</title>
+    <title>Hello, world - 头老师</title>
 
-    <link rel="canonical" href="http://localhost:4000/2015/04/29/java-hashmap-trick/">
+    <link rel="canonical" href="http://localhost:4000/2019/05/20/Hello-world/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="/css/syntax.css">
 
 <link rel="alternate" type="application/rss+xml"
-  href="feed.xml" title="小胖轩">
+  href="feed.xml" title="头老师">
     <!-- Custom Fonts -->
     <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -58,7 +58,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">小胖轩</a>
+            <a class="navbar-brand" href="/">头老师</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,13 +68,13 @@
                     <a href="/">首页</a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a href="/apps/">应用</a>
                 </li>
 
                 <li>
                     <a href="/open/">开源</a>
-                </li>
+                </li> -->
 
                 <li>
                     <a href="/tags/">标签</a>
@@ -118,15 +118,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#java" title="java">java</a>
+                        <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
                         
                     </div>
-                    <h1>HashMap的小优化</h1>
+                    <h1>Hello, world</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Codeboy on April 29, 2015</span>
+                    <span class="meta">Posted by tls on May 20, 2019</span>
                 </div>
             </div>
         </div>
@@ -139,70 +139,9 @@
     <div class="row">
       <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-				<p>HashMap是我们平日内用的非常多的集合框架，网上介绍有很多的实现原理，在存放数据数量已知的情况下，我们可以在构建hashmap的时候指定其容量，减少扩展空间时消耗的时间。下面看一个例子:</p>
+				<p>博客开始写啦，希望这次能坚持</p>
 
-<pre><code>import java.util.HashMap;
-import java.util.Map;
-
-/**
- * HashMap测试
- * 
- * @author YD
- *
- */
-public class MapTest {
-    public static void main(String[] args) {
-        int num = 10000;  //数据容量
-        Map&lt;Integer, String&gt; map1 = new HashMap&lt;Integer, String&gt;();
-        Map&lt;Integer, String&gt; map2 = new HashMap&lt;Integer, String&gt;(num);
-        Map&lt;Integer, String&gt; map3 = new HashMap&lt;Integer, String&gt;(num * 2);
-
-        long time1 = System.currentTimeMillis();
-        for (int i = 0; i &lt; num; i++)
-            map1.put(i, "haha");
-        long time2 = System.currentTimeMillis();
-        for (int i = 0; i &lt; num; i++)
-            map2.put(i, "haha");
-        long time3 = System.currentTimeMillis();
-        for (int i = 0; i &lt; num; i++)
-            map3.put(i, "haha");
-        long time4 = System.currentTimeMillis();
-        System.out.println("map1 time: " + (time2 - time1) + "ms");
-        System.out.println("map2 time: " + (time3 - time2) + "ms");
-        System.out.println("map3 time: " + (time4 - time3) + "ms");
-    }
-}
-</code></pre>
-
-<p>在数据量为10000的时候，多次测试，得出的较多的结果是</p>
-
-<pre><code>map1 time: 14ms
-map2 time: 9ms
-map3 time: 4ms
-</code></pre>
-
-<p>在数据量为100000的时候，结果如下</p>
-
-<pre><code>map1 time: 31ms
-map2 time: 16ms
-map3 time: 9ms
-</code></pre>
-
-<p>如果数据量更大的时候，升值1000000(一百万)时,结果如下</p>
-
-<pre><code>map1 time: 119ms
-map2 time: 47ms
-map3 time: 59ms
-</code></pre>
-
-<p>数据量再增加10倍后(一千万)，结果如下</p>
-
-<pre><code>map1 time: 7718ms
-map2 time: 1035ms
-map3 time: 2156ms
-</code></pre>
-
-<p>可以看出，当我们预先知道数据量的时候，在构建hashmap的时候指定数据容量，可以在数据量大的时候减少消耗时间。指定数据容量时，不应该过多的分配空间。</p>
+<p>参考了模板 <a href="https://github.com/androiddevelop/CodeboyBlog">小胖轩</a></p>
 
 <blockquote>
   <p>如有任何知识产权、版权问题或理论错误，还请指正。</p>
@@ -246,7 +185,7 @@ map3 time: 2156ms
 
                     
                     <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/codeboy">
+                        <a target="_blank" href="https://www.zhihu.com/people/littleflowerdog">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa  fa-stack-1x fa-inverse">知</i>
@@ -257,7 +196,7 @@ map3 time: 2156ms
 
                     
                     <li>
-                        <a target="_blank" href="https://github.com/androiddevelop">
+                        <a target="_blank" href="https://github.com/littleflowerdog">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -266,7 +205,7 @@ map3 time: 2156ms
                     </li>
                     
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; 小胖轩 2019</p>
+                <p class="copyright text-muted">Copyright &copy; 头老师 2019</p>
             </div>
         </div>
     </div>
